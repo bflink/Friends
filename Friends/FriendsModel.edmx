@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FriendsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FriendsModelStoreContainer">
+    <EntitySet Name="Friends" EntityType="FriendsModel.Store.Friends" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Addresses" EntityType="FriendsModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FriendAddress" Association="FriendsModel.Store.FriendAddress">
+      <End Role="Friend" EntitySet="Friends" />
+      <End Role="Address" EntitySet="Addresses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Friends">
+    <Key>
+      <PropertyRef Name="FriendId" />
+    </Key>
+    <Property Name="FriendId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Addresses">
+    <Key>
+      <PropertyRef Name="AdressId" />
+    </Key>
+    <Property Name="AdressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ZipCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address2" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Friend_FriendId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FriendAddress">
+    <End Role="Friend" Type="FriendsModel.Store.Friends" Multiplicity="1" />
+    <End Role="Address" Type="FriendsModel.Store.Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Friend">
+        <PropertyRef Name="FriendId" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="Friend_FriendId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FriendsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FriendsModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Friends" EntityType="FriendsModel.Friend" />
+          <EntitySet Name="Addresses" EntityType="FriendsModel.Address" />
+          <AssociationSet Name="FriendAddress" Association="FriendsModel.FriendAddress">
+            <End Role="Friend" EntitySet="Friends" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="FriendId" />
+          </Key>
+          <Property Name="FriendId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="MiddleName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="FriendsModel.FriendAddress" FromRole="Friend" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AdressId" />
+          </Key>
+          <Property Name="AdressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <NavigationProperty Name="Friend" Relationship="FriendsModel.FriendAddress" FromRole="Address" ToRole="Friend" />
+          <Property Name="State" Type="String" Nullable="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" />
+          <Property Name="Address1" Type="String" Nullable="false" />
+          <Property Name="Address2" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="FriendAddress">
+          <End Type="FriendsModel.Friend" Role="Friend" Multiplicity="1" />
+          <End Type="FriendsModel.Address" Role="Address" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FriendsModelStoreContainer" CdmEntityContainer="FriendsModelContainer">
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="IsTypeOf(FriendsModel.Friend)">
+        <MappingFragment StoreEntitySet="Friends">
+          <ScalarProperty Name="FriendId" ColumnName="FriendId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="IsTypeOf(FriendsModel.Address)">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="AdressId" ColumnName="AdressId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FriendAddress" TypeName="FriendsModel.FriendAddress" StoreEntitySet="Addresses">
+      <EndProperty Name="Friend">
+        <ScalarProperty Name="FriendId" ColumnName="Friend_FriendId" />
+      </EndProperty>
+      <EndProperty Name="Address">
+        <ScalarProperty Name="AdressId" ColumnName="AdressId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
