@@ -30,5 +30,6 @@
             <TextBlock Text="Last Name" />
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding ElementName=UI, Path=SelectedFriend.LastName, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
+        <Button x:Name="DeleteSelectedUserButton" Grid.Row="2" Grid.Column="12" Width="100" Height="50" VerticalAlignment="Top" Click="DeleteSelectedUserButton_Click">Delete User</Button>
     </Grid>
 </Window>

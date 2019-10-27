@@ -36,7 +36,7 @@ namespace Friends
             InitializeComponent();
             Friends = new ObservableCollection<Friend>();
             DataContext = Friends;
-            
+
         }
 
         public Friend SelectedFriend
@@ -48,24 +48,17 @@ namespace Friends
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string property)
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
 
-        private void AddUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            AddUserWindow addUserWindow = new AddUserWindow();
-            if (addUserWindow.ShowDialog() == true)
-            {
-                Friends.Add(addUserWindow.NewFriend);
-            }
-        }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            using(var ctx = new FriendsModelContainer())
+            using (var ctx = new FriendsModelContainer())
             {
                 Friends = new ObservableCollection<Friend>(ctx.Friends.ToList());
             }
@@ -76,6 +69,42 @@ namespace Friends
         private void UsersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ;
+        }
+
+
+        private void AddUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserWindow addUserWindow = new AddUserWindow();
+            if (addUserWindow.ShowDialog() == true)
+            {
+                Friends.Add(addUserWindow.NewFriend);
+                using (var ctx = new FriendsModelContainer())
+                {
+                    ctx.Friends.Add(addUserWindow.NewFriend);
+                    ctx.SaveChanges();
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void DeleteSelectedUserButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            using (var ctx = new FriendsModelContainer())
+            {
+                var userToDelete = ctx.Friends.Find(SelectedFriend.FriendId);
+                if (userToDelete != null)
+                {
+                    ctx.Friends.Remove(userToDelete);
+                    Friends.Remove(SelectedFriend);
+                    UsersListBox.SelectedIndex = 0;
+                    ctx.SaveChanges();
+                }
+            }
         }
     }
 }
