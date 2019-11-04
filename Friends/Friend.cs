@@ -11,9 +11,8 @@ namespace Friends
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
-    public partial class Friend : INotifyPropertyChanged
+    
+    public partial class Friend
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Friend()
@@ -22,47 +21,11 @@ namespace Friends
         }
     
         public int FriendId { get; set; }
-        private string _firstName;
-
-        public string FirstName
-        {
-            get { return _firstName; }
-            set { _firstName = value; NotifyPropertyChanged("FirstName"); }
-        }
-
-        private string _lastName;
-
-        public string LastName
-        {
-            get { return _lastName; }
-            set { _lastName = value; NotifyPropertyChanged("LastName"); }
-        }
-
-        private string _middleName;
-
-        public string MiddleName
-        {
-            get { return _middleName; }
-            set { _middleName = value; NotifyPropertyChanged("MiddleName"); }
-        }
-
-
-        public string DisplayMember
-        {
-            get { return string.Format("{0} {1}", FirstName, LastName); }
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string property)
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-                PropertyChanged(this, new PropertyChangedEventArgs("DisplayMember"));
-            }
-        }
     }
 }

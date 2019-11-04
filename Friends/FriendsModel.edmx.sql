@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/26/2019 13:25:00
--- Generated from EDMX file: C:\Users\Bill\source\repos\Friends\Friends\FriendsModel.edmx
+-- Date Created: 10/29/2019 16:00:23
+-- Generated from EDMX file: C:\Users\billf.PROTOLINK\source\repos\Friends\Friends\FriendsModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,6 +17,9 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_FriendAddress]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Addresses] DROP CONSTRAINT [FK_FriendAddress];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables

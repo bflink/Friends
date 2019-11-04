@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Bill\source\repos\Friends\Friends\FriendsModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\billf.PROTOLINK\source\repos\Friends\Friends\FriendsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
